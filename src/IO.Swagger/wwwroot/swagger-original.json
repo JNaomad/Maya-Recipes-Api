@@ -1,0 +1,253 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "API de recettes",
+    "description" : "Une API pour créer, lire, mettre à jour et supprimer des recettes.",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://votre.domaine.com/api"
+  } ],
+  "paths" : {
+    "/recipes" : {
+      "get" : {
+        "summary" : "Liste toutes les recettes",
+        "responses" : {
+          "200" : {
+            "description" : "Une liste de recettes",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecipesList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Ajoute une nouvelle recette",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Recipe"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Recette créée"
+          }
+        }
+      }
+    },
+    "/recipes/{id}" : {
+      "get" : {
+        "summary" : "Trouve une recette par ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Une recette spécifique",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Met à jour une recette existante",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Recipe"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Recette mise à jour"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Supprime une recette",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Recette supprimée"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Recipe" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "imageURL" : {
+            "type" : "string"
+          },
+          "ingredients" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "ustensils" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Step"
+            }
+          },
+          "preparationTime" : {
+            "type" : "integer"
+          },
+          "cookingTime" : {
+            "type" : "integer"
+          },
+          "priceLevel" : {
+            "type" : "integer"
+          },
+          "quickDescription" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "ustensils" : [ "ustensils", "ustensils" ],
+          "quickDescription" : "quickDescription",
+          "imageURL" : "imageURL",
+          "preparationTime" : 6,
+          "ingredients" : [ "ingredients", "ingredients" ],
+          "id" : 0,
+          "title" : "title",
+          "priceLevel" : 5,
+          "steps" : [ {
+            "name" : "name",
+            "step" : [ "step", "step" ]
+          }, {
+            "name" : "name",
+            "step" : [ "step", "step" ]
+          } ],
+          "cookingTime" : 1
+        }
+      },
+      "Step" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "step" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "example" : {
+          "name" : "name",
+          "step" : [ "step", "step" ]
+        }
+      },
+      "RecipesList" : {
+        "type" : "object",
+        "properties" : {
+          "recipes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Recipe"
+            }
+          }
+        },
+        "example" : {
+          "recipes" : [ {
+            "ustensils" : [ "ustensils", "ustensils" ],
+            "quickDescription" : "quickDescription",
+            "imageURL" : "imageURL",
+            "preparationTime" : 6,
+            "ingredients" : [ "ingredients", "ingredients" ],
+            "id" : 0,
+            "title" : "title",
+            "priceLevel" : 5,
+            "steps" : [ {
+              "name" : "name",
+              "step" : [ "step", "step" ]
+            }, {
+              "name" : "name",
+              "step" : [ "step", "step" ]
+            } ],
+            "cookingTime" : 1
+          }, {
+            "ustensils" : [ "ustensils", "ustensils" ],
+            "quickDescription" : "quickDescription",
+            "imageURL" : "imageURL",
+            "preparationTime" : 6,
+            "ingredients" : [ "ingredients", "ingredients" ],
+            "id" : 0,
+            "title" : "title",
+            "priceLevel" : 5,
+            "steps" : [ {
+              "name" : "name",
+              "step" : [ "step", "step" ]
+            }, {
+              "name" : "name",
+              "step" : [ "step", "step" ]
+            } ],
+            "cookingTime" : 1
+          } ]
+        }
+      }
+    }
+  }
+}
