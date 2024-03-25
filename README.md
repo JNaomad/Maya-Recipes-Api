@@ -1,4 +1,4 @@
-# IO.Swagger - ASP.NET Core 2.0 Server
+# IO.Swagger - ASP.NET 8.0
 
 Une API pour créer, lire, mettre à jour et supprimer des recettes.
 
